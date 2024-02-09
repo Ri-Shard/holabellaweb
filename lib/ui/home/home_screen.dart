@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:holabellaweb/ui/auth/auth_controller.dart';
 import 'package:holabellaweb/ui/resources/buttons.dart';
 import 'package:holabellaweb/ui/resources/custom_appbar.dart';
 import 'package:holabellaweb/ui/resources/my_theme.dart';
+import 'package:sizer/sizer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,81 +19,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double localwidth = MediaQuery.of(context).size.width;
     double localHeigth = MediaQuery.of(context).size.height;
+
+    final authController = Get.find<AuthController>();
+
     return Scaffold(
-        appBar: AppBar(
-          leading: const SizedBox(
-            width: 100,
-          ),
-          title: Container(
-            height: localHeigth * 0.04,
-            child: SvgPicture.asset('assets/svg/logooscuroyclaro.svg'),
-          ),
-          flexibleSpace: const Image(
-            image: AssetImage('assets/images/BlurAppbarWeb.png'),
-            fit: BoxFit.cover,
-          ),
-          actions: [
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Inicio',
-                  style:
-                      MyTheme.basicTextStyle(color: MyTheme.purpura, size: 18),
-                )),
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Nosotros',
-                  style: MyTheme.basicTextStyle(
-                      color: MyTheme.ocreOscuro, size: 18),
-                )),
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Contacto',
-                  style: MyTheme.basicTextStyle(
-                      color: MyTheme.ocreOscuro, size: 18),
-                )),
-            Buttons(
-              ontap: () {},
-              color: Colors.transparent,
-              content: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Registrarse',
-                  style:
-                      MyTheme.basicTextStyle(color: MyTheme.purpura, size: 18),
-                ),
-              ),
-              borderColor: MyTheme.purpura,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Buttons(
-              ontap: () {
-                Get.toNamed('/login');
-              },
-              color: MyTheme.fucsia,
-              content: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Iniciar Sesión',
-                  style: MyTheme.basicTextStyle(color: Colors.white, size: 18),
-                ),
-              ),
-              borderColor: MyTheme.fucsia,
-            ),
-            const SizedBox(
-              width: 100,
-            ),
-          ],
-        ),
+        appBar: CustomAppBar(user: authController.authInstance.currentUser),
         backgroundColor: MyTheme.cremaback,
         body: ListView(
           children: [
             Container(
-              height: localHeigth,
+              height: localHeigth * 0.7,
               padding: const EdgeInsets.only(top: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,19 +41,22 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         'Cuidando\ntu belleza',
                         style: MyTheme.moonTextStyle(
-                            color: MyTheme.ocreBase, size: 76),
+                            color: MyTheme.ocreBajo, size: 76),
                       ),
                       Text(
-                        'Estas invitada a ser parte de esta gran iniciativa',
-                        textAlign: TextAlign.left,
+                        '¡Únete a nuestra comunidad de belleza!\nRegístrate ahora para desarrollar tu\ntalento y crecer profesionalmente',
+                        textAlign: TextAlign.justify,
+                        maxLines: 3,
                         style: MyTheme.basicTextStyle(
-                            color: MyTheme.ocreBase, size: 20),
+                            color: MyTheme.ocreParrafo,
+                            size: 20,
+                            fontWeight: FontWeight.normal),
                       ),
                       SizedBox(
                         height: localHeigth * 0.02,
                       ),
                       SizedBox(
-                        width: localHeigth * 0.3,
+                        width: localwidth * 0.2,
                         height: localHeigth * 0.06,
                         child: Buttons(
                           content: Row(
@@ -139,11 +79,11 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   SizedBox(
-                    width: localHeigth * 0.02,
+                    width: localwidth * 0.01,
                   ),
                   Container(
                     margin: const EdgeInsets.all(7),
-                    width: localHeigth * 0.5,
+                    width: localwidth * 0.25,
                     height: localHeigth * 0.5,
                     decoration: BoxDecoration(
                         image: const DecorationImage(
@@ -173,13 +113,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(
-                    width: localHeigth * 0.02,
+                    width: localwidth * 0.01,
                   ),
                   Column(
                     children: [
                       const Spacer(),
                       Container(
-                        width: localHeigth * 0.24,
+                        width: localwidth * 0.12,
                         height: localHeigth * 0.24,
                         decoration: BoxDecoration(
                           image: const DecorationImage(
@@ -208,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         children: [
                           Container(
-                            width: localHeigth * 0.11,
+                            width: localwidth * 0.055,
                             height: localHeigth * 0.11,
                             decoration: BoxDecoration(
                                 image: const DecorationImage(
@@ -221,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                             width: localHeigth * 0.02,
                           ),
                           Container(
-                            width: localHeigth * 0.11,
+                            width: localwidth * 0.055,
                             height: localHeigth * 0.11,
                             decoration: BoxDecoration(
                                 image: const DecorationImage(
@@ -237,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                         height: localHeigth * 0.01,
                       ),
                       Container(
-                        width: localHeigth * 0.25,
+                        width: localwidth * 0.12,
                         height: localHeigth * 0.12,
                         decoration: BoxDecoration(
                             image: const DecorationImage(
@@ -253,7 +193,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              height: localHeigth,
+              height: localHeigth * 0.7,
               color: MyTheme.ocreOscuro,
               child: Stack(children: [
                 Row(
@@ -269,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           width: localHeigth * 0.35,
                           child: Text(
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n',
+                            '¡Hola Bella! Cada detalle está pensado exclusivamente para ti. Nos esforzamos por ofrecerte una experiencia que no solo realce tu belleza exterior, sino que también celebre tu singularidad interior. Desde una manicure hasta cuidado capilar, cada servicio está diseñado para resaltar lo mejor de ti, para que te sientas segura y radiante en tu propia piel. Nuestro equipo de expertos en belleza está aquí para guiarte, inspirarte y brindarte el cuidado personalizado que mereces. Porque en nuestro mundo de la belleza, tú eres la protagonista, y cada servicio está pensado siempre pensando en tu bienestar.\n',
                             textAlign: TextAlign.left,
                             style: MyTheme.basicTextStyle(
                                 color: Colors.white,
@@ -304,24 +244,24 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     padding: EdgeInsets.only(
                         left: localwidth * 0.20, top: localHeigth * 0.05),
-                    child: const Text(' Siempre\n pensando\n en ti',
+                    child: Text('Bienvenido a\nnuestro mundo de\nBelleza',
                         maxLines: 3,
                         style: TextStyle(
                             fontFamily: 'MoonDream',
-                            fontSize: 50,
+                            fontSize: 7.5.sp,
                             color: Colors.white)),
                   ),
                 )
               ]),
             ),
             Container(
-              height: localHeigth,
+              height: localHeigth * 0.7,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  opacity: 0.2,
-                  image: AssetImage('assets/images/seccion2fond.png'),
-                  fit: BoxFit.cover,
-                ),
+                    image: AssetImage('assets/images/seccion2fond.png'),
+                    fit: BoxFit.cover,
+                    colorFilter:
+                        ColorFilter.mode(MyTheme.fucsia, BlendMode.modulate)),
                 color: MyTheme.fucsia,
               ),
               child: Stack(
@@ -362,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       Transform.translate(
-                          offset: Offset(0, localHeigth * 0.40),
+                          offset: Offset(0, localHeigth * 0.20),
                           child:
                               Image.asset('assets/images/homesonriendo.png')),
                     ],
@@ -371,10 +311,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              height: localHeigth * 1.5,
+              height: localHeigth * 0.7,
               child: Stack(children: [
                 Center(
-                  child: Image.asset('assets/images/imagenseccion3.png'),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: localHeigth * 0.2),
+                    child: Image.asset('assets/images/imagenseccion3.png'),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: localHeigth * 0.30),
@@ -391,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         width: localHeigth * 0.50,
                         child: Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                          '¡Hola bella! Bienvenida a nuestro espacio donde cada detalle está meticulosamente diseñado para celebrar la belleza en todas sus formas. En nuestro sitio web, te invitamos a sumergirte en un universo donde la estética es la protagonista. Desde tratamientos innovadores hasta consejos de estilo, aquí encontrarás todo lo necesario para realzar tu belleza interior y exterior. Sumérgete en un entorno donde cada rincón está pensado para inspirarte y empoderarte. Porque en nuestro mundo, la belleza es más que un ideal, es una experiencia que te transforma. Únete a nosotros y descubre un lugar donde la belleza es el centro de atención y cada momento está impregnado de elegancia y sofisticación.\n',
                           textAlign: TextAlign.left,
                           style: MyTheme.basicTextStyle(
                               color: MyTheme.ocreOscuro,
@@ -400,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       SizedBox(
-                        width: localHeigth * 0.30,
+                        width: localHeigth * 0.36,
                         height: localHeigth * 0.06,
                         child: Buttons(
                           ontap: () {},
@@ -421,6 +364,36 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )
               ]),
+            ),
+            SizedBox(
+              height: localHeigth * 0.06,
+            ),
+            Container(
+              height: localHeigth * 0.06,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image(
+                    image: AssetImage('assets/images/BlurAppbarWeb.png'),
+                    fit: BoxFit.cover,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                          width: 100,
+                          padding: EdgeInsets.all(8),
+                          child: SvgPicture.asset(
+                              'assets/svg/logooscuroyclaro.svg')),
+                      Text(
+                        'Desarrollado por Creative X S.A.S.',
+                        style: MyTheme.basicTextStyle(
+                            size: 12, color: MyTheme.ocreOscuro),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ],
         ));
