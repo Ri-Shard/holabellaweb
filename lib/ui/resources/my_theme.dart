@@ -11,6 +11,7 @@ class MyTheme {
   static const Color dividerpink = Color(0xFFCAC4D0);
   static const Color cremaback = Color(0xFFFEFBED);
   static const Color cremabacWeb = Color(0xFFebe8da);
+  static const Color verderegister = Color(0xFF00CC5E);
 
   static TextStyle basicTextStyle(
       {double? size,

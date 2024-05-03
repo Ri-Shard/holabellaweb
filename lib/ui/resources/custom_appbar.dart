@@ -17,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     double localHeigth = MediaQuery.of(context).size.height;
     final authController = Get.find<AuthController>();
     return AppBar(
+      toolbarHeight: 200,
       leading: const SizedBox(
         width: 100,
       ),

@@ -72,7 +72,9 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                           color: MyTheme.ocreBajo,
-                          ontap: () {},
+                          ontap: () {
+                            Get.toNamed('/register');
+                          },
                         ),
                       ),
                       const Spacer()
@@ -96,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(' Uñas,\n Maquillaje y\n Spa',
+                        Text(' Uñas y \n Cepillado',
                             maxLines: 3,
                             style: TextStyle(
                                 fontFamily: 'MoonDream',
@@ -209,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           width: localHeigth * 0.35,
                           child: Text(
-                            '¡Hola Bella! Cada detalle está pensado exclusivamente para ti. Nos esforzamos por ofrecerte una experiencia que no solo realce tu belleza exterior, sino que también celebre tu singularidad interior. Desde una manicure hasta cuidado capilar, cada servicio está diseñado para resaltar lo mejor de ti, para que te sientas segura y radiante en tu propia piel. Nuestro equipo de expertos en belleza está aquí para guiarte, inspirarte y brindarte el cuidado personalizado que mereces. Porque en nuestro mundo de la belleza, tú eres la protagonista, y cada servicio está pensado siempre pensando en tu bienestar.\n',
+                            '¡¡Hola Bella! Cada detalle está pensado exclusivamente para ti. Nos esforzamos por ofrecerte una experiencia que no solo realce tu belleza exterior, sino que también celebre tu singularidad interior. Desde un manicure hasta cuidado capilar, cada servicio está diseñado para resaltar lo mejor de ti, para que te sientas segura y radiante en tu propia piel. Nuestro equipo de expertos en belleza está aquí para guiarte, inspirarte y brindarte el cuidado personalizado que mereces. Porque en nuestro mundo de la belleza, tú eres la protagonista, y cada servicio está pensado siempre en tu bienestar.\n',
                             textAlign: TextAlign.left,
                             style: MyTheme.basicTextStyle(
                                 color: Colors.white,

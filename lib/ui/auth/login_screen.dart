@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Center(
             child: Container(
               width: localwidth * 0.70,
-              height: localHeigth * 0.93,
+              height: localHeigth * 0.85,
               decoration: BoxDecoration(
                   color: Colors.white70,
                   borderRadius: BorderRadius.circular(25)),

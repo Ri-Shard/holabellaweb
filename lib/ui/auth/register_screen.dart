@@ -29,8 +29,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     TextEditingController name = TextEditingController();
     TextEditingController phone = TextEditingController();
     TextEditingController address = TextEditingController();
+    TextEditingController city = TextEditingController();
     TextEditingController password = TextEditingController();
     TextEditingController verifypassword = TextEditingController();
+
+    bool obscureText = true;
 
     final authController = Get.find<AuthController>();
     return Scaffold(
@@ -58,9 +61,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           topLeft: Radius.circular(25),
                           bottomLeft: Radius.circular(25)),
                       image: DecorationImage(
-                        opacity: 0.2,
                         image: AssetImage('assets/images/masaje.png'),
                         fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                            MyTheme.purpura, BlendMode.modulate),
                       ),
                       color: MyTheme.purpura,
                     ),
@@ -90,7 +94,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: Row(
                                 children: [
                                   TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Get.toNamed('/toapp');
+                                      },
                                       child: Text(
                                         'Sólo quiero ser más bella',
                                         style: MyTheme.basicTextStyle(
@@ -201,7 +207,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       },
                                       controller: phone,
                                       labeltext: 'Celular',
-                                      hint: '+57 301 234 5678',
+                                      hint:
+                                          'El celular debe estar asociado a WhatsApp',
                                       inputType: TextInputType.phone,
                                       prefix: const Icon(Icons.dialpad),
                                     ),
@@ -230,13 +237,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     child: CustomText(
                                       validator: (p0) {
                                         if (p0!.isEmpty) {
-                                          return 'Campo vacio, ingrese una contraseña';
+                                          return 'Campo vacio, ingrese una ciudad';
                                         }
                                       },
+                                      controller: city,
+                                      labeltext: 'Ciudad',
+                                      hint: 'Introduce una Ciudad',
+                                      prefix: const Icon(
+                                          Icons.location_on_outlined),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: localwidth * 0.21,
+                                    padding: EdgeInsets.only(
+                                        top: localHeigth * 0.02),
+                                    child: CustomText(
+                                      validator: (p0) {
+                                        if (p0!.isEmpty) {
+                                          return 'Campo vacio, ingrese una contraseña';
+                                        }
+                                        if (p0.length < 6) {
+                                          return 'La contraseña debe tener mas de 6 caracteres';
+                                        }
+                                      },
+                                      onChanged: (text) {
+                                        _.update(['registerView']);
+                                      },
+                                      suffix: InkWell(
+                                        child: Icon(!obscureText
+                                            ? Icons.visibility_off_outlined
+                                            : Icons.visibility_outlined),
+                                        onTap: () {
+                                          obscureText = !obscureText;
+                                          _.update(['registerView']);
+                                        },
+                                      ),
                                       controller: password,
                                       labeltext: 'Contraseña',
                                       hint: 'Contraseña',
-                                      obscureText: true,
+                                      obscureText: obscureText,
                                       prefix: const Icon(Icons.password),
                                     ),
                                   ),
@@ -249,11 +288,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (p0!.isEmpty) {
                                           return 'Campo vacio, confirme la contraseña';
                                         }
+                                        if (p0.length < 6) {
+                                          return 'La contraseña debe tener mas de 6 caracteres';
+                                        }
+                                        if (p0 != password.text) {
+                                          return 'La contraseñas no coinciden';
+                                        }
                                       },
+                                      onChanged: (text) {
+                                        _.update(['registerView']);
+                                      },
+                                      suffix: InkWell(
+                                        child: Icon(!obscureText
+                                            ? Icons.visibility_off_outlined
+                                            : Icons.visibility_outlined),
+                                        onTap: () {
+                                          obscureText = !obscureText;
+                                          _.update(['registerView']);
+                                        },
+                                      ),
                                       controller: verifypassword,
                                       labeltext: 'Verificar',
                                       hint: 'Verifica tu contraseña',
-                                      obscureText: true,
+                                      obscureText: obscureText,
                                       prefix: const Icon(Icons.password),
                                     ),
                                   ),
@@ -288,6 +345,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 name: name.text.trim(),
                                                 phone: phone.text.trim(),
                                                 address: address.text.trim(),
+                                                city: city.text.trim(),
                                               ));
                                           if (response ==
                                               "Correo en uso, por favor utilice otro") {
