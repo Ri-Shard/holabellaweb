@@ -1,12 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:holabellaweb/main.dart';
+import 'package:holabellaweb/models/service_model.dart';
 import 'package:holabellaweb/ui/auth/auth_controller.dart';
 import 'package:holabellaweb/ui/resources/buttons.dart';
 import 'package:holabellaweb/ui/resources/custom_appbar.dart';
 import 'package:holabellaweb/ui/resources/custom_text.dart';
 import 'package:holabellaweb/ui/resources/my_theme.dart';
+import 'package:holabellaweb/ui/services/controller/service_controller.dart';
 import 'dart:html';
 
 import 'package:quickalert/quickalert.dart';
@@ -21,13 +25,14 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  final servicecontroller = Get.find<ServiceController>();
+  final authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     double localwidth = MediaQuery.of(context).size.width;
     double localHeigth = MediaQuery.of(context).size.height;
 
-    final authController = Get.find<AuthController>();
-    User user = authController.verifyuser!;
+    List<ServiceModel?> services = servicecontroller.servicesData;
     return Padding(
       padding: EdgeInsets.only(
           left: localwidth * 0.03,
@@ -43,7 +48,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   fontSize: 30,
                   color: MyTheme.ocreOscuro)),
           Text(
-            'Estos son los datos de tu cuenta, acá también podrás editarlos.',
+            'Este es el historial de pedidos o contratos que has realizado en el tiempo.',
             style: MyTheme.basicTextStyle(
                 fontWeight: FontWeight.normal,
                 size: 18,
@@ -53,125 +58,96 @@ class _HistoryScreenState extends State<HistoryScreen> {
           const SizedBox(
             height: 10,
           ),
-          const SizedBox(
-            width: 120,
-            height: 120,
-            child: CircleAvatar(
-              backgroundColor: Colors.grey,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+          Flexible(
+            child: Container(
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Nombres y Apellidos',
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 18,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    user.name!,
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 24,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
+                  Expanded(
+                    child: CustomText(
+                      hint: 'Búsqueda',
+                      suffix: Icon(
+                        Icons.search,
+                        color: MyTheme.ocreBajo,
+                      ),
+                      prefix: Icon(Icons.menu, color: MyTheme.ocreBajo),
+                    ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    width: 30,
                   ),
-                  Text(
-                    'Correo',
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 18,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
+                  Buttons(
+                    ontap: () {},
+                    borderColor: Colors.transparent,
+                    content: Row(
+                      children: [
+                        Text('Filtrar por'),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Icon(Icons.filter_list, color: MyTheme.ocreBase),
+                      ],
+                    ),
                   ),
-                  Text(
-                    user.email!,
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 24,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Ciudad',
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 18,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    'Valledupar, Cesar',
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 24,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
+                  Buttons(
+                    ontap: () {},
+                    borderColor: Colors.transparent,
+                    content: Row(
+                      children: [
+                        Text('Ordenar por'),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Icon(Icons.filter_list, color: MyTheme.ocreBase),
+                      ],
+                    ),
                   ),
                 ],
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Celular',
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 18,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    user.phone!,
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 24,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Dirección',
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 18,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    user.address!,
-                    style: MyTheme.basicTextStyle(
-                        fontWeight: FontWeight.normal,
-                        size: 24,
-                        color: MyTheme.ocreBase),
-                    textAlign: TextAlign.start,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              )
-            ],
+            ),
           ),
+          SizedBox(
+            height: 20,
+          ),
+          Flexible(
+              child: Container(
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Servicio'),
+                      Text('Cliente'),
+                      Text('Fecha'),
+                      Text('Hora'),
+                    ],
+                  ))),
+          Divider(),
+          const SizedBox(
+            height: 10,
+          ),
+          GetBuilder<ServiceController>(
+              id: 'history',
+              builder: (_) {
+                return Container(
+                  height: 400,
+                  child: ListView.builder(
+                    itemCount: services.length,
+                    itemBuilder: (_, index) {
+                      return Flex(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        direction: Axis.horizontal,
+                        children: [
+                          Text(services[index]!.name!),
+                          Text(services[index]!.user_email!),
+                          Text(services[index]!.date!),
+                          Text(services[index]!.hour!)
+                        ],
+                      );
+                    },
+                  ),
+                );
+              }),
           const SizedBox(
             height: 30,
           ),
@@ -186,7 +162,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        'Editar',
+                        'Actualizar',
                         style: MyTheme.basicTextStyle(),
                       ),
                     ),

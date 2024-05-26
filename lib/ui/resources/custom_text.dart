@@ -12,6 +12,7 @@ class CustomText extends StatefulWidget {
   final bool? enable;
   final int? maxlines;
   final double? border;
+  final Color? colorborder;
   final String? hint;
 
   const CustomText(
@@ -26,6 +27,7 @@ class CustomText extends StatefulWidget {
       this.validator,
       this.maxlines,
       this.border,
+      this.colorborder,
       this.enable,
       this.hint});
 
@@ -47,13 +49,11 @@ class CustomTextState extends State<CustomText> {
       decoration: InputDecoration(
           hintText: widget.hint,
           labelText: widget.labeltext,
-          suffixIcon: widget.suffix ?? null,
-          // const Icon(
-          //   Icons.ac_unit,
-          //   color: Colors.transparent,
-          // ),
+          suffixIcon: widget.suffix,
           prefixIcon: widget.prefix,
           border: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: widget.colorborder ?? Colors.transparent, width: 0.0),
               borderRadius:
                   BorderRadius.all(Radius.circular(widget.border ?? 100)))),
     );

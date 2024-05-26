@@ -7,9 +7,9 @@ import 'package:holabellaweb/ui/resources/buttons.dart';
 import 'package:holabellaweb/ui/resources/custom_appbar.dart';
 import 'package:holabellaweb/ui/resources/custom_text.dart';
 import 'package:holabellaweb/ui/resources/my_theme.dart';
+import 'package:holabellaweb/ui/services/controller/service_controller.dart';
 import 'package:holabellaweb/ui/services/history_screen.dart';
 import 'package:holabellaweb/ui/services/profile_screen.dart';
-import 'package:holabellaweb/ui/services/services_controller.dart';
 import 'dart:html';
 
 import 'package:quickalert/quickalert.dart';
@@ -31,9 +31,10 @@ class _ServicesLayoutScreenState extends State<ServicesLayoutScreen> {
   Widget build(BuildContext context) {
     double localwidth = MediaQuery.of(context).size.width;
     double localHeigth = MediaQuery.of(context).size.height;
-
+    final servicecontroller = Get.find<ServiceController>();
     final authController = Get.find<AuthController>();
     User? user = authController.verifyuser;
+    servicecontroller.getAmbassadorServices(user!.email!);
     return Scaffold(
       appBar: CustomAppBar(user: authController.authInstance.currentUser),
       body: Stack(
@@ -57,7 +58,7 @@ class _ServicesLayoutScreenState extends State<ServicesLayoutScreen> {
                         left: localwidth * 0.03,
                         top: localHeigth * 0.05,
                         right: localwidth * 0.03),
-                    child: GetBuilder<ServicesController>(
+                    child: GetBuilder<ServiceController>(
                         id: 'servicesView',
                         builder: (_) {
                           return Column(
@@ -258,7 +259,7 @@ class _ServicesLayoutScreenState extends State<ServicesLayoutScreen> {
                   decoration: BoxDecoration(
                       color: Colors.white70,
                       borderRadius: BorderRadius.circular(25)),
-                  child: GetBuilder<ServicesController>(
+                  child: GetBuilder<ServiceController>(
                       id: 'servicesView',
                       builder: (context) {
                         return Center(
