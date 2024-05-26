@@ -114,12 +114,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
               child: Container(
                   height: 50,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('Servicio'),
-                      Text('Cliente'),
-                      Text('Fecha'),
-                      Text('Hora'),
+                      Expanded(flex: 40, child: Text('Servicio')),
+                      Expanded(flex: 40, child: Text('Cliente')),
+                      Expanded(flex: 15, child: Text('Fecha')),
+                      Expanded(flex: 15, child: Text('Hora')),
                     ],
                   ))),
           Divider(),
@@ -129,8 +129,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           GetBuilder<ServiceController>(
               id: 'history',
               builder: (_) {
-                return Container(
-                  height: 400,
+                return Expanded(
                   child: ListView.builder(
                     itemCount: services.length,
                     itemBuilder: (_, index) {
@@ -138,10 +137,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         direction: Axis.horizontal,
                         children: [
-                          Text(services[index]!.name!),
-                          Text(services[index]!.user_email!),
-                          Text(services[index]!.date!),
-                          Text(services[index]!.hour!)
+                          Expanded(
+                              flex: 40, child: Text(services[index]!.name!)),
+                          Expanded(
+                              flex: 40,
+                              child: Text(services[index]!.user_email!)),
+                          Expanded(
+                              flex: 15, child: Text(services[index]!.date!)),
+                          Expanded(
+                              flex: 15, child: Text(services[index]!.hour!))
                         ],
                       );
                     },
