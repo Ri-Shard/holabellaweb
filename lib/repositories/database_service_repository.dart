@@ -17,25 +17,35 @@ class DataBaseServiceRepository {
           .then((data) {
         List<ServiceModel?> services = [];
 
-        data.forEach((element) {
+        data.forEach((element) async {
           ServiceModel serviceModel = ServiceModel();
+
           serviceModel.name = element['name'];
           serviceModel.person = element['person'];
           serviceModel.date = element['date'].toString();
           serviceModel.price = element['price'].toString();
           serviceModel.hour = element['hour'];
           serviceModel.category = element['category'];
-          serviceModel.user_email = element['user_email'];
+          serviceModel.user_email = await username(element['user_email']);
           serviceModel.ambassador = element['ambassador'];
           services.add(serviceModel);
         });
-        print(services);
         return services;
       });
     } catch (e) {
       print(e);
 
       return [];
+    }
+  }
+
+  Future<String> username(String useremail) async {
+    try {
+      final aux =
+          await supabase.from('users').select('name').eq('email', useremail);
+      return aux.first['name'];
+    } catch (e) {
+      return '';
     }
   }
 }

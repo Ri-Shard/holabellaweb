@@ -32,7 +32,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
     double localwidth = MediaQuery.of(context).size.width;
     double localHeigth = MediaQuery.of(context).size.height;
 
-    List<ServiceModel?> services = servicecontroller.servicesData;
     return Padding(
       padding: EdgeInsets.only(
           left: localwidth * 0.03,
@@ -42,7 +41,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Historial',
+          const Text('Historial de pedidos',
               style: TextStyle(
                   fontFamily: 'MoonDream',
                   fontSize: 30,
@@ -118,8 +117,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     children: [
                       Expanded(flex: 40, child: Text('Servicio')),
                       Expanded(flex: 40, child: Text('Cliente')),
-                      Expanded(flex: 15, child: Text('Fecha')),
-                      Expanded(flex: 15, child: Text('Hora')),
+                      Expanded(flex: 20, child: Text('Fecha')),
+                      Expanded(flex: 10, child: Text('Hora')),
                     ],
                   ))),
           Divider(),
@@ -131,28 +130,59 @@ class _HistoryScreenState extends State<HistoryScreen> {
               builder: (_) {
                 return Expanded(
                   child: ListView.builder(
-                    itemCount: services.length,
+                    itemCount: servicecontroller.servicesData.length,
                     itemBuilder: (_, index) {
-                      return Flex(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        direction: Axis.horizontal,
-                        children: [
-                          Expanded(
-                              flex: 40, child: Text(services[index]!.name!)),
-                          Expanded(
-                              flex: 40,
-                              child: Text(services[index]!.user_email!)),
-                          Expanded(
-                              flex: 15, child: Text(services[index]!.date!)),
-                          Expanded(
-                              flex: 15, child: Text(services[index]!.hour!))
-                        ],
+                      if (servicecontroller.servicesData.isEmpty) {
+                        return Center(
+                          child: Text('No hay datos'),
+                        );
+                      }
+                      return SizedBox(
+                        height: 30,
+                        child: Flex(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          direction: Axis.horizontal,
+                          children: [
+                            Expanded(
+                                flex: 40,
+                                child: Text(
+                                  servicecontroller.servicesData[index]!.name!,
+                                  overflow: TextOverflow.fade,
+                                  style: TextStyle(
+                                      fontSize: 18, color: MyTheme.ocreBase),
+                                )),
+                            Expanded(
+                                flex: 40,
+                                child: Text(
+                                    servicecontroller
+                                        .servicesData[index]!.user_email!,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: MyTheme.ocreBase))),
+                            Expanded(
+                                flex: 20,
+                                child: Text(
+                                    servicecontroller
+                                        .servicesData[index]!.date!,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: MyTheme.ocreBase))),
+                            Expanded(
+                                flex: 10,
+                                child: Text(
+                                    servicecontroller
+                                        .servicesData[index]!.hour!,
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                        fontSize: 18, color: MyTheme.ocreBase)))
+                          ],
+                        ),
                       );
                     },
                   ),
                 );
               }),
-          const SizedBox(
+          SizedBox(
             height: 30,
           ),
           Center(
@@ -173,7 +203,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ],
                 ),
                 color: MyTheme.ocreBajo,
-                ontap: () {},
+                ontap: () {
+                  servicecontroller.update(['history']);
+                },
               ),
             ),
           ),

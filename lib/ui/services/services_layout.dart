@@ -9,6 +9,7 @@ import 'package:holabellaweb/ui/resources/custom_text.dart';
 import 'package:holabellaweb/ui/resources/my_theme.dart';
 import 'package:holabellaweb/ui/services/controller/service_controller.dart';
 import 'package:holabellaweb/ui/services/history_screen.dart';
+import 'package:holabellaweb/ui/services/payment_methods_screen.dart';
 import 'package:holabellaweb/ui/services/profile_screen.dart';
 import 'dart:html';
 
@@ -25,7 +26,11 @@ class ServicesLayoutScreen extends StatefulWidget {
 
 class _ServicesLayoutScreenState extends State<ServicesLayoutScreen> {
   int index = 0;
-  List<Widget> views = [ProfileScreen(), HistoryScreen()];
+  List<Widget> views = [
+    ProfileScreen(),
+    HistoryScreen(),
+    PaymentsMethodsScreen()
+  ];
   @override
   @override
   Widget build(BuildContext context) {
@@ -34,6 +39,7 @@ class _ServicesLayoutScreenState extends State<ServicesLayoutScreen> {
     final servicecontroller = Get.find<ServiceController>();
     final authController = Get.find<AuthController>();
     User? user = authController.verifyuser;
+
     servicecontroller.getAmbassadorServices(user!.email!);
     return Scaffold(
       appBar: CustomAppBar(user: authController.authInstance.currentUser),
@@ -149,7 +155,8 @@ class _ServicesLayoutScreenState extends State<ServicesLayoutScreen> {
                                     ],
                                   ),
                                   ontap: () {
-                                    Get.toNamed('/drawerhiring');
+                                    index = 2;
+                                    _.update(['servicesView']);
                                   },
                                   borderColor: Colors.transparent,
                                   focuscolor: MyTheme.verdeMenta,
